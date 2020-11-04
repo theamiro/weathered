@@ -1,0 +1,13 @@
+//
+//  config.xcconfig
+//  Weathered
+//
+//  Created by Michael Amiro on 05/11/2020.
+//  Copyright © 2020 Michael Amiro. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+API_BASE = https:/$()/api.openweathermap.org/data/2.5/forecast
+
+API_KEY = 7b8ca5afb3f3f1788012f55b29af9932

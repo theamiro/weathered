@@ -13,7 +13,6 @@ import MapKit
 
 class BookmarkedLocationsCell: UICollectionViewCell {
     static let reuseIdentifier = "locationCell"
-    
     @IBOutlet weak var locationNameLabel: UILabel!
     @IBOutlet weak var latitudeLabel: UILabel!
     @IBOutlet weak var longitudeLabel: UILabel!
@@ -21,6 +20,7 @@ class BookmarkedLocationsCell: UICollectionViewCell {
 
 class ViewController: UIViewController {
     var bookmarkedLocations = [Favourite]()
+    var selectedCity: Favourite?
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var collectionView: UICollectionView!
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -31,7 +31,6 @@ class ViewController: UIViewController {
     
     var addLocationButton: UIButton = {
         var button = UIButton()
-//        button.setImage(UIImage(named: "map-marker"), for: .normal)
         button.setTitle("Favourite", for: .normal)
         button.backgroundColor = UIColor.gray
         button.layer.cornerRadius = 18.0
@@ -64,7 +63,6 @@ class ViewController: UIViewController {
         } catch {
             
         }
-        
         getSetLocationServices()
     }
     
@@ -79,7 +77,7 @@ class ViewController: UIViewController {
     }
     func centerUserLocationOnView() {
         if let location = locationManager.location?.coordinate {
-            let region = MKCoordinateRegion(center: location, latitudinalMeters: 200000, longitudinalMeters: 200000)
+            let region = MKCoordinateRegion(center: location, latitudinalMeters: 5000, longitudinalMeters: 5000)
             mapView.setRegion(region, animated: true)
         }
     }
@@ -142,6 +140,17 @@ extension ViewController: UICollectionViewDataSource {
         cell.longitudeLabel.text = String(format: "%.4f",bookmarkedLocations[indexPath.row].longitude)
         return cell
     }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        let city = bookmarkedLocations[indexPath.row]
+        
+        APIRequest().makeCall(latitude: city.latitude, longitude: city.longitude) { [weak self] response in
+            print(response)
+        }
+        selectedCity = city
+        
+        self.performSegue(withIdentifier: "toCity", sender: self)
+    }
 }
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
@@ -179,9 +188,9 @@ extension ViewController: MKMapViewDelegate {
                 return
             }
             if let locality = placemark.locality {
-                self.city = placemark.locality
+                self.city = placemark.name
             } else {
-                self.city = placemark.subLocality
+                self.city = placemark.locality
             }
             
         }

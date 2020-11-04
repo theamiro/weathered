@@ -39,7 +39,7 @@ struct APIRequest {
     /// Makes Calls to the API
     ///
     /// - Returns: Completion
-    func makeCall(latitude: String, longitude: String, units: Units = .metric, completion: @escaping(Result<[List], ResponseError>) -> Void) {
+    func makeCall(latitude: Double, longitude: Double, units: Units = .metric, completion: @escaping(Result<[List], ResponseError>) -> Void) {
         let stringURL = NetworkingValues.apiBase + "?lat=\(latitude)&lon=\(longitude)&appid=\(NetworkingValues.appid)&units=\(units)"
         guard let resourceURL = URL(string: stringURL) else { return }
         URLSession.shared.dataTask(with: resourceURL) { (data, response, error) in
