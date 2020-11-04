@@ -18,8 +18,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" showsScale="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XFR-tm-8TJ">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsScale="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XFR-tm-8TJ">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="582.5"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="q0C-5K-BvP"/>
+                                </connections>
                             </mapView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p6a-Ke-LCV">
                                 <rect key="frame" x="0.0" y="582.5" width="414" height="313.5"/>
@@ -45,22 +48,22 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="D8R-vB-nbp">
-                                                            <rect key="frame" x="15" y="22" width="115" height="76.5"/>
+                                                            <rect key="frame" x="15" y="18" width="115" height="84.5"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map" translatesAutoresizingMaskIntoConstraints="NO" id="T9f-5F-c7h">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="28" height="28"/>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mapped" translatesAutoresizingMaskIntoConstraints="NO" id="T9f-5F-c7h">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
                                                                     <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
-                                                                        <constraint firstAttribute="width" constant="28" id="TKb-QO-ulD"/>
-                                                                        <constraint firstAttribute="height" constant="28" id="zhr-fF-m7Y"/>
+                                                                        <constraint firstAttribute="width" constant="36" id="TKb-QO-ulD"/>
+                                                                        <constraint firstAttribute="height" constant="36" id="zhr-fF-m7Y"/>
                                                                     </constraints>
                                                                 </imageView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="5It-VC-PBB">
-                                                                    <rect key="frame" x="0.0" y="38" width="103.5" height="38.5"/>
+                                                                    <rect key="frame" x="0.0" y="46" width="103.5" height="38.5"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nairobi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VlU-Jb-TFV">
                                                                             <rect key="frame" x="0.0" y="0.0" width="103.5" height="26.5"/>
-                                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
@@ -108,8 +111,9 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
+                                                    <outlet property="latitudeLabel" destination="JXy-zm-uKQ" id="VlU-lu-8Sl"/>
                                                     <outlet property="locationNameLabel" destination="VlU-Jb-TFV" id="Xjv-8G-9Jz"/>
-                                                    <outlet property="weatherDescriptionLabel" destination="JXy-zm-uKQ" id="SlU-ki-dwM"/>
+                                                    <outlet property="longitudeLabel" destination="V83-pp-nqw" id="uXV-9P-jjq"/>
                                                 </connections>
                                             </collectionViewCell>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="favoritesCell" id="H3B-i7-RRG">
@@ -179,14 +183,23 @@
                                     <constraint firstAttribute="trailing" secondItem="nhz-4I-gSu" secondAttribute="trailing" id="su3-71-SN2"/>
                                 </constraints>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map-marker" translatesAutoresizingMaskIntoConstraints="NO" id="fbl-Qg-nSH">
+                                <rect key="frame" x="189" y="253" width="36" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="WcF-4D-28v"/>
+                                    <constraint firstAttribute="width" constant="36" id="dEf-RH-Mmb"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="p6a-Ke-LCV" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="0qm-Hb-qf2"/>
+                            <constraint firstItem="XFR-tm-8TJ" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.65" id="9oS-bh-lji"/>
                             <constraint firstItem="p6a-Ke-LCV" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="BYY-iV-Hz3"/>
+                            <constraint firstItem="fbl-Qg-nSH" firstAttribute="centerY" secondItem="XFR-tm-8TJ" secondAttribute="centerY" constant="-20" id="Fdu-NR-9wc"/>
+                            <constraint firstItem="fbl-Qg-nSH" firstAttribute="centerX" secondItem="XFR-tm-8TJ" secondAttribute="centerX" id="Nan-kD-0ph"/>
                             <constraint firstItem="XFR-tm-8TJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="OUq-GS-NyE"/>
                             <constraint firstItem="p6a-Ke-LCV" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.35" id="Uva-PL-tza"/>
-                            <constraint firstAttribute="bottom" secondItem="XFR-tm-8TJ" secondAttribute="bottom" id="Zee-wq-J4D"/>
                             <constraint firstItem="XFR-tm-8TJ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="ajP-je-NQt"/>
                             <constraint firstItem="XFR-tm-8TJ" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="dlF-Y4-EhG"/>
                             <constraint firstItem="p6a-Ke-LCV" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="34" id="iNH-9V-jer"/>
@@ -201,6 +214,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="collectionView" destination="nhz-4I-gSu" id="ICx-cu-DLC"/>
                         <outlet property="mapView" destination="XFR-tm-8TJ" id="F7v-RE-XA6"/>
                         <segue destination="Ous-Ty-DbZ" kind="show" identifier="toCity" id="t0B-nH-2W9"/>
                     </connections>
@@ -438,6 +452,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="map" width="512" height="457"/>
+        <image name="map-marker" width="396" height="512"/>
+        <image name="mapped" width="512" height="458"/>
     </resources>
 </document>

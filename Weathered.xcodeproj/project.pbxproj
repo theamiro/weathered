@@ -19,7 +19,9 @@
 		0283C104255304570006A3F7 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283C103255304570006A3F7 /* HttpRequest.swift */; };
 		0283C1062553049E0006A3F7 /* NetworkingValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283C1052553049E0006A3F7 /* NetworkingValues.swift */; };
 		0283C108255307130006A3F7 /* AlertsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283C107255307130006A3F7 /* AlertsController.swift */; };
-		02F2FDF22553194E00178C00 /* favouritesDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDF02553194E00178C00 /* favouritesDataModel.xcdatamodeld */; };
+		02F2FDF22553194E00178C00 /* Weathered.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDF02553194E00178C00 /* Weathered.xcdatamodeld */; };
+		02F2FDF925533EA900178C00 /* Favourite+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDF725533EA900178C00 /* Favourite+CoreDataClass.swift */; };
+		02F2FDFA25533EA900178C00 /* Favourite+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDF825533EA900178C00 /* Favourite+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		0283C1052553049E0006A3F7 /* NetworkingValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingValues.swift; sourceTree = "<group>"; };
 		0283C107255307130006A3F7 /* AlertsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsController.swift; sourceTree = "<group>"; };
 		02F2FDF12553194E00178C00 /* favouritesDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = favouritesDataModel.xcdatamodel; sourceTree = "<group>"; };
+		02F2FDF725533EA900178C00 /* Favourite+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Favourite+CoreDataClass.swift"; sourceTree = "<group>"; };
+		02F2FDF825533EA900178C00 /* Favourite+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Favourite+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +115,9 @@
 			children = (
 				0283C0D12552F8610006A3F7 /* AppDelegate.swift */,
 				0283C1052553049E0006A3F7 /* NetworkingValues.swift */,
-				02F2FDF02553194E00178C00 /* favouritesDataModel.xcdatamodeld */,
+				02F2FDF725533EA900178C00 /* Favourite+CoreDataClass.swift */,
+				02F2FDF825533EA900178C00 /* Favourite+CoreDataProperties.swift */,
+				02F2FDF02553194E00178C00 /* Weathered.xcdatamodeld */,
 				0283C0D32552F8610006A3F7 /* SceneDelegate.swift */,
 				0283C0D52552F8610006A3F7 /* ViewController.swift */,
 				0283C0D72552F8610006A3F7 /* Main.storyboard */,
@@ -280,8 +286,10 @@
 				0283C0D62552F8610006A3F7 /* ViewController.swift in Sources */,
 				0283C1062553049E0006A3F7 /* NetworkingValues.swift in Sources */,
 				0283C0D22552F8610006A3F7 /* AppDelegate.swift in Sources */,
-				02F2FDF22553194E00178C00 /* favouritesDataModel.xcdatamodeld in Sources */,
+				02F2FDF22553194E00178C00 /* Weathered.xcdatamodeld in Sources */,
+				02F2FDFA25533EA900178C00 /* Favourite+CoreDataProperties.swift in Sources */,
 				0283C0D42552F8610006A3F7 /* SceneDelegate.swift in Sources */,
+				02F2FDF925533EA900178C00 /* Favourite+CoreDataClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,13 +622,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		02F2FDF02553194E00178C00 /* favouritesDataModel.xcdatamodeld */ = {
+		02F2FDF02553194E00178C00 /* Weathered.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				02F2FDF12553194E00178C00 /* favouritesDataModel.xcdatamodel */,
 			);
 			currentVersion = 02F2FDF12553194E00178C00 /* favouritesDataModel.xcdatamodel */;
-			path = favouritesDataModel.xcdatamodeld;
+			path = Weathered.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
