@@ -19,6 +19,8 @@
 		0283C104255304570006A3F7 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283C103255304570006A3F7 /* HttpRequest.swift */; };
 		0283C1062553049E0006A3F7 /* NetworkingValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283C1052553049E0006A3F7 /* NetworkingValues.swift */; };
 		0283C108255307130006A3F7 /* AlertsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283C107255307130006A3F7 /* AlertsController.swift */; };
+		02F20E202553551700F99E64 /* README.MD in Resources */ = {isa = PBXBuildFile; fileRef = 02F20E1F2553551700F99E64 /* README.MD */; };
+		02F20E242553556400F99E64 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 02F20E232553556300F99E64 /* .gitignore */; };
 		02F2FDF22553194E00178C00 /* Weathered.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDF02553194E00178C00 /* Weathered.xcdatamodeld */; };
 		02F2FDF925533EA900178C00 /* Favourite+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDF725533EA900178C00 /* Favourite+CoreDataClass.swift */; };
 		02F2FDFA25533EA900178C00 /* Favourite+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F2FDF825533EA900178C00 /* Favourite+CoreDataProperties.swift */; };
@@ -61,6 +63,8 @@
 		0283C1052553049E0006A3F7 /* NetworkingValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingValues.swift; sourceTree = "<group>"; };
 		0283C107255307130006A3F7 /* AlertsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsController.swift; sourceTree = "<group>"; };
 		02F20E1D25534F2300F99E64 /* config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = config.xcconfig; sourceTree = "<group>"; };
+		02F20E1F2553551700F99E64 /* README.MD */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.MD; sourceTree = "<group>"; };
+		02F20E232553556300F99E64 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		02F2FDF12553194E00178C00 /* favouritesDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = favouritesDataModel.xcdatamodel; sourceTree = "<group>"; };
 		02F2FDF725533EA900178C00 /* Favourite+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Favourite+CoreDataClass.swift"; sourceTree = "<group>"; };
 		02F2FDF825533EA900178C00 /* Favourite+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Favourite+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -98,6 +102,8 @@
 				0283C0E72552F8650006A3F7 /* WeatheredTests */,
 				0283C0F22552F8650006A3F7 /* WeatheredUITests */,
 				0283C0CF2552F8610006A3F7 /* Products */,
+				02F20E1F2553551700F99E64 /* README.MD */,
+				02F20E232553556300F99E64 /* .gitignore */,
 			);
 			sourceTree = "<group>";
 		};
@@ -255,8 +261,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02F20E242553556400F99E64 /* .gitignore in Resources */,
 				0283C0DE2552F8640006A3F7 /* LaunchScreen.storyboard in Resources */,
 				0283C0DB2552F8640006A3F7 /* Assets.xcassets in Resources */,
+				02F20E202553551700F99E64 /* README.MD in Resources */,
 				0283C0D92552F8610006A3F7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
