@@ -16,43 +16,60 @@ class BookmarkedLocationsCell: UICollectionViewCell {
     @IBOutlet weak var locationNameLabel: UILabel!
     @IBOutlet weak var latitudeLabel: UILabel!
     @IBOutlet weak var longitudeLabel: UILabel!
+    @IBOutlet weak var deleteIcon: UIImageView!
+    
+    var isEditing: Bool = false {
+        didSet{
+            deleteIcon.isHidden = !isEditing
+        }
+    }
+    override var isSelected: Bool {
+        didSet {
+            if isEditing {
+                deleteIcon.image = isSelected ? UIImage(named: "checkmark-filled") : UIImage(named: "checkmark-free")
+            }
+        }
+    }
 }
 
 class ViewController: UIViewController {
     var bookmarkedLocations = [Favourite]()
+    var weatherInformation: WeatherResponse?
+    
     var selectedCity: Favourite?
+    
+    var city: City?
+    var forecast: [List]?
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var collectionView: UICollectionView!
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var context: NSManagedObjectContext!
     
     var previousLocation: CLLocation?
-    var city: String?
     
-    var addLocationButton: UIButton = {
-        var button = UIButton()
-        button.setTitle("Favourite", for: .normal)
-        button.backgroundColor = UIColor.gray
-        button.layer.cornerRadius = 18.0
-        return button
-    }()
+    var cityName: String = "Unkown Location"
     
     let locationManager = CLLocationManager()
-    var list = [List]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(addLocationButton)
-        addLocationButton.translatesAutoresizingMaskIntoConstraints = false
-        addLocationButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 156.0).isActive = true
-        addLocationButton.heightAnchor.constraint(equalToConstant: 36.0).isActive = true
-        addLocationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
-        addLocationButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40).isActive = true
-        
-        addLocationButton.addTarget(self, action: #selector(addFavouriteLocation), for: .touchUpInside)
-        
+        navigationItem.rightBarButtonItem = editButtonItem
+        fetchFavourites()
+        getSetLocationServices()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toCity" {
+            if let cityDetailViewController = segue.destination as? SingleCityViewController {
+                cityDetailViewController.city = self.city
+                cityDetailViewController.forecast = self.forecast
+            }
+        }
+    }
+    
+    private func fetchFavourites() {
         let fetchRequest: NSFetchRequest<Favourite> = Favourite.fetchRequest()
-        
         do {
             if #available(iOS 10.0, *) {
                 let locations = try appDelegate.persistentContainer.viewContext.fetch(fetchRequest)
@@ -63,7 +80,6 @@ class ViewController: UIViewController {
         } catch {
             
         }
-        getSetLocationServices()
     }
     
     private func getSetLocationServices() {
@@ -105,8 +121,8 @@ class ViewController: UIViewController {
                 break
         }
     }
-    @objc
-    private func addFavouriteLocation() {
+    
+    @IBAction func addFavourite(_ sender: Any) {
         if #available(iOS 10.0, *) {
             context = appDelegate.persistentContainer.viewContext
             let favourite = Favourite(context: context)
@@ -116,7 +132,7 @@ class ViewController: UIViewController {
             
             favourite.latitude = latitude
             favourite.longitude = longitude
-            favourite.name = self.city
+            favourite.name = self.cityName
             appDelegate.saveContext()
             self.bookmarkedLocations.append(favourite)
             self.collectionView.reloadData()
@@ -141,15 +157,32 @@ extension ViewController: UICollectionViewDataSource {
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.deselectItem(at: indexPath, animated: true)
-        let city = bookmarkedLocations[indexPath.row]
-        
-        APIRequest().makeCall(latitude: city.latitude, longitude: city.longitude) { [weak self] response in
-            print(response)
+        if !isEditing {
+            
+            collectionView.deselectItem(at: indexPath, animated: true)
+            let city = bookmarkedLocations[indexPath.row]
+            
+            APIRequest().makeCall(latitude: city.latitude, longitude: city.longitude) { [weak self] response in
+                switch response{
+                    case .success(let weatherInformation):
+                        self!.weatherInformation = weatherInformation
+                        self!.selectedCity = city
+//                        self?.city = weatherInformation.city
+                        self?.forecast = weatherInformation.list
+                        DispatchQueue.main.async {
+                            self!.performSegue(withIdentifier: "toCity", sender: self)
+                        }
+                        break
+                    case .failure(let error):
+                        DispatchQueue.main.async {
+                            self!.present(AlertsController().generateAlert(withError: String(error.localizedDescription)), animated: true)
+                        }
+                        break
+                }
+            }
+        } else {
+            
         }
-        selectedCity = city
-        
-        self.performSegue(withIdentifier: "toCity", sender: self)
     }
 }
 
@@ -159,6 +192,15 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 10.0
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(true, animated: animated)
+        collectionView.allowsMultipleSelection = editing
+        collectionView.indexPathsForVisibleItems.forEach { (indexPath) in
+            let cell = collectionView.cellForItem(at: indexPath) as! BookmarkedLocationsCell
+            cell.isEditing = editing
+        }
     }
 }
 extension ViewController: CLLocationManagerDelegate {
@@ -188,9 +230,9 @@ extension ViewController: MKMapViewDelegate {
                 return
             }
             if let locality = placemark.locality {
-                self.city = placemark.name
+                self.cityName = placemark.name!
             } else {
-                self.city = placemark.locality
+                self.cityName = placemark.locality!
             }
             
         }

@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: - Empty
-struct APIResponse: Codable {
+struct WeatherResponse: Codable {
     let cod: String
     let message, cnt: Int
     let list: [List]
@@ -39,14 +39,13 @@ struct List: Codable {
     let wind: Wind
     let visibility: Int
     let pop: Double
+    let rain: Rain?
     let sys: Sys
     let dtTxt: String
-    let rain: Rain?
     
     enum CodingKeys: String, CodingKey {
-        case dt, main, weather, clouds, wind, visibility, pop, sys
+        case dt, main, weather, clouds, wind, visibility, pop, rain, sys
         case dtTxt = "dt_txt"
-        case rain
     }
 }
 
@@ -97,7 +96,8 @@ enum Pod: String, Codable {
 struct Weather: Codable {
     let id: Int
     let main: MainEnum
-    let weatherDescription, icon: String
+    let weatherDescription: Description
+    let icon: String
     
     enum CodingKeys: String, CodingKey {
         case id, main
@@ -110,6 +110,15 @@ enum MainEnum: String, Codable {
     case clear = "Clear"
     case clouds = "Clouds"
     case rain = "Rain"
+}
+
+enum Description: String, Codable {
+    case brokenClouds = "broken clouds"
+    case clearSky = "clear sky"
+    case fewClouds = "few clouds"
+    case lightRain = "light rain"
+    case overcastClouds = "overcast clouds"
+    case scatteredClouds = "scattered clouds"
 }
 
 // MARK: - Wind

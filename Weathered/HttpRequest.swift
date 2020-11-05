@@ -35,11 +35,12 @@ extension ResponseError: LocalizedError{
 enum Units {
     case standard, metric, imperial
 }
+
 struct APIRequest {
     /// Makes Calls to the API
     ///
     /// - Returns: Completion
-    func makeCall(latitude: Double, longitude: Double, units: Units = .metric, completion: @escaping(Result<[List], ResponseError>) -> Void) {
+    func makeCall(latitude: Double, longitude: Double, units: Units = .metric, completion: @escaping(Result<WeatherResponse, ResponseError>) -> Void) {
         let stringURL = NetworkingValues.apiBase + "?lat=\(latitude)&lon=\(longitude)&appid=\(NetworkingValues.appid)&units=\(units)"
         guard let resourceURL = URL(string: stringURL) else { return }
         URLSession.shared.dataTask(with: resourceURL) { (data, response, error) in
@@ -63,9 +64,8 @@ struct APIRequest {
                 return
             }
             do {
-                let apiResponse = try JSONDecoder().decode(APIResponse.self, from: data)
-                print(apiResponse)
-                completion(.success(apiResponse.list))
+                let apiResponse = try JSONDecoder().decode(WeatherResponse.self, from: data)
+                completion(.success(apiResponse))
             } catch {
                 completion(.failure(.jsonNotDecodable))
                 return
