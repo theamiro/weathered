@@ -23,9 +23,12 @@ class WeatherHeaderView: UITableViewHeaderFooterView {
         let temperature = forecast.main.temp
         temperatureLabel.text = String(format: "%.0f", temperature) + "°"
         
-        let chanceOfRain = forecast.rain!.the3H
-        let probability = String(format: "%.0f", chanceOfRain * 100)
-        chanceOfRainLabel.text = probability + "%"
+        if let chanceOfRain = forecast.rain?.the3H {
+            let probability = String(format: "%.0f", chanceOfRain * 100)
+            chanceOfRainLabel.text = probability + "%"
+        } else {
+            chanceOfRainLabel.text = "-"
+        }
         
         let windSpeed = forecast.wind.speed
         let windDirection = forecast.wind.deg
