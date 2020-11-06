@@ -18,7 +18,7 @@ class WeatherHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var lastUpdateLabel: UILabel!
     
     func configureHeaderView(using forecast: List) {
-        weatherLabel.text = forecast.weather.first?.main.rawValue
+        weatherLabel.text = forecast.weather.first?.main
         
         let temperature = forecast.main.temp
         temperatureLabel.text = String(format: "%.0f", temperature) + "°"
@@ -29,14 +29,11 @@ class WeatherHeaderView: UITableViewHeaderFooterView {
         
         let windSpeed = forecast.wind.speed
         let windDirection = forecast.wind.deg
-        
         let windInfo = String(format: "%.0f", windDirection) + "° " + String(format: "%.0f", windSpeed) + " kph"
         windInfoLabel.text = windInfo
         
         let humidity = forecast.main.humidity
-            humidityLabel.text = String(humidity) + "%"
-    }
-    private func configureWeatherLabel() {
+        humidityLabel.text = String(humidity) + "%"
         
     }
 }

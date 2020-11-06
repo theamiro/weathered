@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SingleCityViewController: UIViewController {
+class SingleLocationViewController: UIViewController {
     var city: City?
     var forecast: [List]?
     let reuseIdentifier = "forecastCell"
@@ -23,7 +23,7 @@ class SingleCityViewController: UIViewController {
     }
     
 }
-extension SingleCityViewController: UITableViewDataSource {
+extension SingleLocationViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 120
     }
@@ -38,9 +38,10 @@ extension SingleCityViewController: UITableViewDataSource {
         }
         return cell
     }
+    
 }
 
-extension SingleCityViewController: UITableViewDelegate {
+extension SingleLocationViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: "WeatherHeaderView") as! WeatherHeaderView
         headerCell.configureHeaderView(using: (forecast?.first)!)
@@ -49,5 +50,9 @@ extension SingleCityViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 230.0
     }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100.0
+    }
+
 }
 //°

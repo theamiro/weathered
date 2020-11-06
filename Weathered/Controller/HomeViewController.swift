@@ -11,28 +11,7 @@ import CoreData
 import CoreLocation
 import MapKit
 
-class BookmarkedLocationsCell: UICollectionViewCell {
-    static let reuseIdentifier = "locationCell"
-    @IBOutlet weak var locationNameLabel: UILabel!
-    @IBOutlet weak var latitudeLabel: UILabel!
-    @IBOutlet weak var longitudeLabel: UILabel!
-    @IBOutlet weak var deleteIcon: UIImageView!
-    
-    var isEditing: Bool = false {
-        didSet{
-            deleteIcon.isHidden = !isEditing
-        }
-    }
-    override var isSelected: Bool {
-        didSet {
-            if isEditing {
-                deleteIcon.image = isSelected ? UIImage(named: "checkmark-filled") : UIImage(named: "checkmark-free")
-            }
-        }
-    }
-}
-
-class ViewController: UIViewController {
+class HomeViewController: UIViewController {
     var bookmarkedLocations = [Favourite]()
     var weatherInformation: WeatherResponse?
     
@@ -48,20 +27,20 @@ class ViewController: UIViewController {
     
     var previousLocation: CLLocation?
     
-    var cityName: String = "Unkown Location"
+    var cityName: String = "Unknown Location"
     
     let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = editButtonItem
+//        navigationItem.rightBarButtonItem = editButtonItem
         fetchFavourites()
         getSetLocationServices()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toCity" {
-            if let cityDetailViewController = segue.destination as? SingleCityViewController {
+            if let cityDetailViewController = segue.destination as? SingleLocationViewController {
                 cityDetailViewController.city = self.city
                 cityDetailViewController.forecast = self.forecast
             }
@@ -76,9 +55,10 @@ class ViewController: UIViewController {
                 self.bookmarkedLocations = locations
                 self.collectionView.reloadData()
             } else {
+                
             }
         } catch {
-            
+            self.present(AlertsController().generateAlert(withError: "We could not fetch any data about your Bookmarked Locations"), animated: true)
         }
     }
     
@@ -142,7 +122,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UICollectionViewDataSource {
+extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return bookmarkedLocations.count
     }
@@ -186,7 +166,7 @@ extension ViewController: UICollectionViewDataSource {
     }
 }
 
-extension ViewController: UICollectionViewDelegateFlowLayout {
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 140, height: 120.0)
     }
@@ -203,7 +183,7 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
         }
     }
 }
-extension ViewController: CLLocationManagerDelegate {
+extension HomeViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
     }
@@ -212,7 +192,7 @@ extension ViewController: CLLocationManagerDelegate {
     }
 }
 
-extension ViewController: MKMapViewDelegate {
+extension HomeViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         let center = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
         let coder = CLGeocoder()
@@ -229,13 +209,13 @@ extension ViewController: MKMapViewDelegate {
             guard let placemark = placemarks?.first else {
                 return
             }
-            if let locality = placemark.locality {
+            if placemark.name != nil {
                 self.cityName = placemark.name!
-            } else {
+            } else if placemark.locality != nil {
                 self.cityName = placemark.locality!
+            } else {
+                self.cityName = "Unknown Location"
             }
-            
         }
-        print(center)
     }
 }
