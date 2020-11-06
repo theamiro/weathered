@@ -33,9 +33,6 @@ extension SingleLocationViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) else {
             return UITableViewCell()
         }
-        DispatchQueue.main.async {
-            cell.textLabel!.text = "Forecast"
-        }
         return cell
     }
     
